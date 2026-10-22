@@ -1,0 +1,4 @@
+# Video Asset Placeholder
+# Place your showreel video here as showreel.mp4
+# Recommended: H.264 MP4, 1920×1080, muted, loop
+# The site works without it — a gradient placeholder is shown instead.

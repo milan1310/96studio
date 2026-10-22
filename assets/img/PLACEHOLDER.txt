@@ -1,0 +1,16 @@
+# Image Asset Placeholders
+# Replace these files with real WebP/AVIF architectural renders.
+# All images display CSS gradient fallbacks until real files are added.
+
+# home-stars.webp        — Full-bleed dark starry sky over mountain horizon
+# home-mountains.webp    — Mountain silhouette at dusk (parallax layer)
+# home-pool.webp         — Infinity pool edge at golden hour (parallax layer)
+# about-terrace.webp     — Concrete terrace opening to sunset sea (tall/portrait)
+# service-renders.webp   — Concrete villa render for 3D Renders panel
+# service-animation.webp — Architectural animation still for Animation panel
+# service-interactive.webp — Hotel towers render for Interactive panel
+# work-residence.webp    — Residential cliff villa card image
+# work-hospitality.webp  — Waterfront resort card image
+# work-interior.webp     — Penthouse interior card image
+# work-commercial.webp   — Mixed-use tower card image
+# contact-terrace.webp   — Wide panoramic sunset terrace for contact section

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="the96studio — Architectural visualization studio offering premium 3D renders, cinematic animation and interactive walkthroughs. Architecture, imagined differently." />
+  <meta name="theme-color" content="#050505" />
+  <title>the96studio — Architectural Visualization</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- PRELOADER -->
+  <div id="preloader" aria-hidden="true">
+    <div class="preloader__progress-line">
+      <div class="preloader__progress-fill" id="preloaderFill"></div>
+    </div>
+    <div class="preloader__wordmark" id="preloaderWordmark">the96studio</div>
+  </div>
+
+  <!-- CUSTOM CURSOR -->
+  <div id="cursor" aria-hidden="true">
+    <div class="cursor__ring"></div>
+    <span class="cursor__label"></span>
+  </div>
+
+  <!-- FILM GRAIN -->
+  <canvas id="grainCanvas" aria-hidden="true"></canvas>
+
+  <!-- VIGNETTE -->
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- HEADER -->
+  <header id="siteHeader" role="banner">
+    <a href="#home" class="header__logo" aria-label="the96studio — home">the96studio</a>
+    <nav class="header__nav" aria-label="Main navigation">
+      <a href="#work" class="nav__link" data-magnetic>WORK</a>
+      <a href="#services" class="nav__link" data-magnetic>SERVICES</a>
+      <a href="#contact" class="nav__link" data-magnetic>CONTACT</a>
+      <button class="nav__circle" id="menuToggle" aria-label="Menu" data-magnetic>
+        <span class="nav__circle-inner"></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- SCROLL PROGRESS -->
+  <aside class="scroll-progress" aria-label="Scroll progress">
+    <div class="scroll-progress__dots">
+      <button class="scroll-progress__dot active" data-section="0" aria-label="Home"></button>
+      <button class="scroll-progress__dot" data-section="1" aria-label="About"></button>
+      <button class="scroll-progress__dot" data-section="2" aria-label="Services"></button>
+      <button class="scroll-progress__dot" data-section="3" aria-label="Work"></button>
+      <button class="scroll-progress__dot" data-section="4" aria-label="Reveal"></button>
+      <button class="scroll-progress__dot" data-section="5" aria-label="Contact"></button>
+    </div>
+  </aside>
+
+  <main id="mainContent">
+
+    <!-- ══════════════════════════════════════
+         01. HOME / ARRIVAL
+    ══════════════════════════════════════ -->
+    <section id="home" class="section section--home" data-section-index="0" aria-label="Home">
+      <div class="home__bg-layer home__bg--img" aria-hidden="true"></div>
+      <div class="home__bg-layer home__bg--overlay" aria-hidden="true"></div>
+      <div class="home__bg-layer home__bg--stars" aria-hidden="true"></div>
+
+      <!-- Arc SVG -->
+      <div class="home__arc-wrapper" aria-hidden="true">
+        <svg class="home__arc-svg" viewBox="0 0 900 520" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="arcBlurSoft"><feGaussianBlur in="SourceGraphic" stdDeviation="3"/></filter>
+            <filter id="arcBlurHeavy"><feGaussianBlur in="SourceGraphic" stdDeviation="10"/></filter>
+            <radialGradient id="arcGlow" cx="50%" cy="100%" r="60%">
+              <stop offset="0%" stop-color="#f2a65a" stop-opacity="0.9"/>
+              <stop offset="50%" stop-color="#ff8a3d" stop-opacity="0.4"/>
+              <stop offset="100%" stop-color="#ff8a3d" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <ellipse class="arc__bloom" cx="450" cy="498" rx="220" ry="55" fill="url(#arcGlow)" filter="url(#arcBlurHeavy)" opacity="0"/>
+          <path class="arc__path arc__path--glow"
+            d="M 130 500 Q 450 120 770 500"
+            fill="none" stroke="#f2a65a" stroke-width="4"
+            filter="url(#arcBlurSoft)"
+            stroke-dasharray="1250" stroke-dashoffset="1250" opacity="0"/>
+          <path class="arc__path arc__path--sharp"
+            d="M 130 500 Q 450 120 770 500"
+            fill="none" stroke="#f2a65a" stroke-width="1.2"
+            stroke-dasharray="1250" stroke-dashoffset="1250" opacity="0"/>
+          <circle class="arc__sun" cx="450" cy="490" r="32" fill="#f2a65a" filter="url(#arcBlurHeavy)" opacity="0"/>
+          <circle class="arc__sun-core" cx="450" cy="490" r="7" fill="#fffaf0" opacity="0"/>
+        </svg>
+      </div>
+
+      <span class="section__label home-label">01 / ARRIVAL</span>
+
+      <div class="home__content">
+        <h1 class="home__headline">
+          <span class="line-wrap"><span class="line">Every idea</span></span>
+          <span class="line-wrap"><span class="line">finds a horizon.</span></span>
+        </h1>
+        <p class="home__subline">Architecture, imagined differently.</p>
+      </div>
+
+      <div class="home__scroll-cue" id="scrollCue">
+        <span class="scroll-cue__label">SCROLL</span>
+        <div class="scroll-cue__line" aria-hidden="true">
+          <div class="scroll-cue__dot"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         02. ABOUT
+    ══════════════════════════════════════ -->
+    <section id="about" class="section section--about" data-section-index="1" aria-label="About">
+      <span class="section__label">02 / DIRECTION</span>
+      <div class="about__inner">
+        <div class="about__text-col">
+          <h2 class="about__heading">
+            <span class="line-wrap"><span class="line">Somewhere between</span></span>
+            <span class="line-wrap"><span class="line">direction</span></span>
+            <span class="line-wrap"><span class="line">and possibility.</span></span>
+          </h2>
+          <div class="about__divider"></div>
+          <div class="about__body">
+            <p>We explore what happens when perspective changes. Light becomes atmosphere. Space becomes emotion. Architecture becomes experience.</p>
+            <p class="about__body--accent">the96studio exists somewhere between what is imagined and what becomes real.</p>
+          </div>
+          <div class="about__footer">
+            <p class="about__footer-label">There is a story behind the name.</p>
+            <button class="btn-circle" id="aboutScrollBtn" aria-label="Scroll to The Reveal" data-magnetic>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+                <path d="M12 5v14M5 12l7 7 7-7"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="about__image-col">
+          <div class="about__image-clip">
+            <div class="about__image-inner" role="img" aria-label="Concrete terrace overlooking a sunset sea"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         03. SERVICES
+    ══════════════════════════════════════ -->
+    <section id="services" class="section section--services" data-section-index="2" aria-label="Services">
+      <span class="section__label">03 / SERVICES</span>
+      <div class="services__panels">
+
+        <article class="service-panel" data-panel="0">
+          <div class="service-panel__bg sp-bg-0" aria-hidden="true"></div>
+          <div class="service-panel__content">
+            <span class="service-panel__num">01</span>
+            <h2 class="service-panel__title">3D RENDERS</h2>
+            <p class="service-panel__tagline">Architecture, before reality.</p>
+          </div>
+          <button class="btn-circle service-panel__btn" aria-label="Explore 3D Renders" data-magnetic data-cursor-label="EXPLORE">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </article>
+
+        <article class="service-panel" data-panel="1">
+          <div class="service-panel__bg sp-bg-1" aria-hidden="true"></div>
+          <div class="service-panel__content">
+            <span class="service-panel__num">02</span>
+            <h2 class="service-panel__title">ANIMATION</h2>
+            <p class="service-panel__tagline">When architecture starts moving.</p>
+          </div>
+          <button class="btn-play" id="playBtn" aria-label="Play animation showreel" data-cursor-label="PLAY" data-magnetic>
+            <svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="#f2a65a"/></svg>
+          </button>
+          <button class="btn-circle service-panel__btn" aria-label="Explore Animation" data-magnetic data-cursor-label="EXPLORE">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </article>
+
+        <article class="service-panel" data-panel="2">
+          <div class="service-panel__bg sp-bg-2" aria-hidden="true"></div>
+          <div class="service-panel__content">
+            <span class="service-panel__num">03</span>
+            <h2 class="service-panel__title">INTERACTIVE<br>WALKTHROUGHS</h2>
+            <p class="service-panel__tagline">Don't just look at it. Enter it.</p>
+          </div>
+          <button class="btn-circle service-panel__btn" aria-label="Explore Walkthroughs" data-magnetic data-cursor-label="EXPLORE">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         04. SELECTED WORK
+    ══════════════════════════════════════ -->
+    <section id="work" class="section section--work" data-section-index="3" aria-label="Selected Work">
+      <span class="section__label">04 / SELECTED WORK</span>
+      <div class="work__outer" id="workOuter">
+        <div class="work__track" id="workTrack">
+
+          <article class="work-card" data-card="0" tabindex="0" aria-label="Residence project" data-cursor-label="VIEW">
+            <div class="work-card__image wc-img-0" aria-hidden="true"></div>
+            <div class="work-card__overlay" aria-hidden="true"></div>
+            <div class="work-card__content">
+              <span class="work-card__num">01</span>
+              <h3 class="work-card__title">RESIDENCE</h3>
+              <div class="work-card__line" aria-hidden="true"></div>
+            </div>
+          </article>
+
+          <article class="work-card" data-card="1" tabindex="0" aria-label="Hospitality project" data-cursor-label="VIEW">
+            <div class="work-card__image wc-img-1" aria-hidden="true"></div>
+            <div class="work-card__overlay" aria-hidden="true"></div>
+            <div class="work-card__content">
+              <span class="work-card__num">02</span>
+              <h3 class="work-card__title">HOSPITALITY</h3>
+              <div class="work-card__line" aria-hidden="true"></div>
+            </div>
+          </article>
+
+          <article class="work-card" data-card="2" tabindex="0" aria-label="Interior project" data-cursor-label="VIEW">
+            <div class="work-card__image wc-img-2" aria-hidden="true"></div>
+            <div class="work-card__overlay" aria-hidden="true"></div>
+            <div class="work-card__content">
+              <span class="work-card__num">03</span>
+              <h3 class="work-card__title">INTERIOR</h3>
+              <div class="work-card__line" aria-hidden="true"></div>
+            </div>
+          </article>
+
+          <article class="work-card" data-card="3" tabindex="0" aria-label="Commercial project" data-cursor-label="VIEW">
+            <div class="work-card__image wc-img-3" aria-hidden="true"></div>
+            <div class="work-card__overlay" aria-hidden="true"></div>
+            <div class="work-card__content">
+              <span class="work-card__num">04</span>
+              <h3 class="work-card__title">COMMERCIAL</h3>
+              <div class="work-card__line" aria-hidden="true"></div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+      <div class="work__footer">
+        <a href="#" class="work__explore-link" data-magnetic>
+          <span class="work__explore-circle">◯</span> EXPLORE PROJECTS
+        </a>
+        <div class="work__thumbnails" role="tablist" aria-label="Project thumbnails">
+          <button class="work__thumb work__thumb--active" data-thumb="0" role="tab" aria-label="Residence"></button>
+          <button class="work__thumb" data-thumb="1" role="tab" aria-label="Hospitality"></button>
+          <button class="work__thumb" data-thumb="2" role="tab" aria-label="Interior"></button>
+          <button class="work__thumb" data-thumb="3" role="tab" aria-label="Commercial"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         05. THE REVEAL
+    ══════════════════════════════════════ -->
+    <section id="reveal" class="section section--reveal" data-section-index="4" aria-label="The Reveal">
+      <span class="section__label">05 / THE REVEAL</span>
+      <div class="reveal__scene" aria-hidden="true">
+        <div class="reveal__horizon-glow"></div>
+      </div>
+      <div class="reveal__logo-comp" aria-label="Nine infinity six">
+        <span class="reveal__digit" id="digit9">9</span>
+        <div class="reveal__infinity-wrap">
+          <svg class="reveal__infinity-svg" viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="infGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#c9783a"/>
+                <stop offset="50%" stop-color="#f2a65a"/>
+                <stop offset="100%" stop-color="#c9783a"/>
+              </linearGradient>
+              <filter id="infGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
+                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+            <circle class="inf__origin" cx="120" cy="50" r="3" fill="#f2a65a" opacity="0"/>
+            <path class="inf__path inf__path--glow"
+              d="M 60 50 C 60 20, 100 20, 120 50 C 140 80, 180 80, 180 50 C 180 20, 140 20, 120 50 C 100 80, 60 80, 60 50 Z"
+              fill="none" stroke="url(#infGrad)" stroke-width="7"
+              stroke-dasharray="620" stroke-dashoffset="620"
+              filter="url(#infGlow)" opacity="0"/>
+            <path class="inf__path inf__path--sharp"
+              d="M 60 50 C 60 20, 100 20, 120 50 C 140 80, 180 80, 180 50 C 180 20, 140 20, 120 50 C 100 80, 60 80, 60 50 Z"
+              fill="none" stroke="url(#infGrad)" stroke-width="1.5"
+              stroke-dasharray="620" stroke-dashoffset="620" opacity="0"/>
+          </svg>
+        </div>
+        <span class="reveal__digit" id="digit6">6</span>
+      </div>
+      <div class="reveal__copy">
+        <h2 class="reveal__headline">
+          <span class="line-wrap"><span class="line">Two numbers.</span></span>
+          <span class="line-wrap"><span class="line">One idea.</span></span>
+          <span class="line-wrap"><span class="line">Infinite outcomes.</span></span>
+        </h2>
+        <p class="reveal__subline">And somewhere in that moment, a direction became a name.</p>
+        <div class="reveal__wordmark">the96studio</div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         06. CONTACT
+    ══════════════════════════════════════ -->
+    <section id="contact" class="section section--contact" data-section-index="5" aria-label="Contact">
+      <div class="contact__bg" aria-hidden="true"></div>
+      <div class="contact__scrim" aria-hidden="true"></div>
+      <span class="section__label">06 / CONTACT</span>
+      <div class="contact__inner">
+        <h2 class="contact__headline">
+          <span class="line-wrap"><span class="line">HAVE AN IDEA?</span></span>
+          <span class="line-wrap"><span class="line">LET'S SEE WHERE</span></span>
+          <span class="line-wrap"><span class="line">IT TAKES US.</span></span>
+        </h2>
+        <div class="contact__divider"></div>
+        <button class="btn-pill" id="startProjectBtn" aria-label="Start a project" data-magnetic>
+          <span>START A PROJECT</span>
+          <span class="btn-pill__arrow" aria-hidden="true">→</span>
+          <span class="btn-pill__fill" aria-hidden="true"></span>
+        </button>
+        <p class="contact__services">3D RENDERS · ANIMATION · INTERACTIVE WALKTHROUGHS</p>
+      </div>
+      <footer class="contact__footer" role="contentinfo">
+        <p class="contact__footer-tagline">INFINITE OUTCOMES. ONE CONSTANT.</p>
+        <p class="contact__footer-brand">the96studio</p>
+      </footer>
+    </section>
+
+  </main>
+
+  <!-- VIDEO MODAL -->
+  <div id="videoModal" class="modal modal--video" role="dialog" aria-modal="true" aria-label="Video showreel" hidden>
+    <button class="modal__close" id="videoModalClose" aria-label="Close video">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="modal__video-wrap">
+      <video id="modalVideo" muted loop playsinline preload="none">
+        <source src="assets/video/showreel.mp4" type="video/mp4"/>
+      </video>
+      <div class="modal__video-placeholder" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <!-- PROJECT MODAL -->
+  <div id="projectModal" class="modal modal--project" role="dialog" aria-modal="true" aria-label="Project detail" hidden>
+    <button class="modal__close" id="projectModalClose" aria-label="Close project">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="project-modal__image" id="projectModalImage"></div>
+    <div class="project-modal__content">
+      <span class="project-modal__num" id="projectModalNum">01</span>
+      <h2 class="project-modal__title" id="projectModalTitle">RESIDENCE</h2>
+      <div class="project-modal__divider"></div>
+      <p class="project-modal__desc" id="projectModalDesc"></p>
+      <div class="project-modal__controls">
+        <button class="btn-circle" id="prevProject" aria-label="Previous project" data-magnetic>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        </button>
+        <button class="btn-circle" id="nextProject" aria-label="Next project" data-magnetic>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT PANEL -->
+  <div id="contactPanel" class="contact-panel" role="dialog" aria-modal="true" aria-label="Start a project" hidden>
+    <button class="contact-panel__close btn-circle" id="contactPanelClose" aria-label="Close panel" data-magnetic>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="contact-panel__inner">
+      <span class="section__label" style="position:static;display:block;margin-bottom:1rem;">START A PROJECT</span>
+      <h2 class="contact-panel__heading">Tell us about your idea.</h2>
+      <!-- TODO: Replace with real endpoint (Formspree, Netlify Forms, EmailJS, etc.) -->
+      <form class="project-form" id="projectForm" novalidate>
+        <div class="form-field">
+          <input class="form-field__input" type="text" id="fieldName" name="name" required placeholder=" " />
+          <label class="form-field__label" for="fieldName">Your name</label>
+          <div class="form-field__line"></div>
+          <span class="form-field__error"></span>
+        </div>
+        <div class="form-field">
+          <input class="form-field__input" type="email" id="fieldEmail" name="email" required placeholder=" " />
+          <label class="form-field__label" for="fieldEmail">Email address</label>
+          <div class="form-field__line"></div>
+          <span class="form-field__error"></span>
+        </div>
+        <fieldset class="form-chips">
+          <legend class="form-chips__legend">Project type</legend>
+          <div class="form-chips__wrap">
+            <label class="chip"><input type="radio" name="type" value="residence"/> Residence</label>
+            <label class="chip"><input type="radio" name="type" value="hospitality"/> Hospitality</label>
+            <label class="chip"><input type="radio" name="type" value="interior"/> Interior</label>
+            <label class="chip"><input type="radio" name="type" value="commercial"/> Commercial</label>
+          </div>
+        </fieldset>
+        <div class="form-field">
+          <textarea class="form-field__input form-field__textarea" id="fieldMessage" name="message" rows="4" placeholder=" "></textarea>
+          <label class="form-field__label" for="fieldMessage">Your message</label>
+          <div class="form-field__line"></div>
+        </div>
+        <button class="btn-pill btn-pill--submit" type="submit" data-magnetic>
+          <span>SEND ENQUIRY</span>
+          <span class="btn-pill__arrow">→</span>
+          <span class="btn-pill__fill"></span>
+        </button>
+        <div class="form-success" id="formSuccess" hidden>
+          <div class="form-success__icon">✦</div>
+          <p class="form-success__msg">Thank you. We'll be in touch soon.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- BACKDROP -->
+  <div id="modalBackdrop" class="modal-backdrop" aria-hidden="true"></div>
+
+  <!-- ── SCRIPTS (loaded at end of body, not deferred) ── -->
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
+  <!-- Lenis — served locally (CDN @studio-freight is discontinued) -->
+  <script src="js/vendor/lenis.min.js"></script>
+  <!-- Main app -->
+  <script src="js/app.js"></script>
+</body>
+</html>
