@@ -1,0 +1,563 @@
+/* ═══════════════════════════════════════════════════════════════
+   gallery.css — the96studio gallery page
+   Pinterest / bento grid · Sharp corners · Parallax
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ───────────────────────────────────────────────
+   GALLERY PAGE OVERRIDES
+─────────────────────────────────────────────── */
+.gallery-page {
+  background: var(--c-bg);
+  overflow-x: hidden;
+}
+
+/* Active nav link */
+.nav__link--active {
+  color: var(--c-amber) !important;
+}
+.nav__link--active::after {
+  width: 100% !important;
+  background: var(--c-amber);
+}
+
+/* ───────────────────────────────────────────────
+   HERO
+─────────────────────────────────────────────── */
+.gal-hero {
+  position: relative;
+  height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background: var(--c-bg);
+}
+
+.gal-hero__bg {
+  position: absolute;
+  inset: 0;
+  /* Cinematic gradient — replaced by real image if desired */
+  background:
+    linear-gradient(180deg, rgba(5,4,10,0.6) 0%, rgba(5,4,8,0.3) 40%, rgba(5,4,10,0.95) 100%),
+    radial-gradient(ellipse 100% 60% at 60% 40%, rgba(180,110,30,0.18) 0%, transparent 60%),
+    linear-gradient(135deg, #060408 0%, #100c06 50%, #060408 100%);
+  will-change: transform;
+}
+
+/* Subtle grid lines in hero bg */
+.gal-hero__bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(242,166,90,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(242,166,90,0.04) 1px, transparent 1px);
+  background-size: clamp(60px, 8vw, 120px) clamp(60px, 8vw, 120px);
+}
+
+.gal-hero__content {
+  position: relative;
+  z-index: 2;
+  padding: 0 var(--sp-lg) var(--sp-xl);
+  max-width: 900px;
+}
+
+.gal-hero__label {
+  position: static;
+  display: block;
+  margin-bottom: var(--sp-md);
+  opacity: 0;
+}
+
+.gal-hero__headline {
+  font-size: clamp(3.5rem, 10vw, 10rem);
+  font-weight: 200;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--c-text);
+  margin-bottom: var(--sp-md);
+}
+
+.gal-hero__sub {
+  font-size: var(--fs-body);
+  color: var(--c-text-muted);
+  max-width: 480px;
+  line-height: 1.8;
+  opacity: 0;
+}
+
+.gal-hero__count {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+  margin-top: var(--sp-lg);
+  opacity: 0;
+}
+
+.gal-hero__count-num {
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-weight: 200;
+  color: var(--c-amber);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.gal-hero__count-label {
+  font-size: var(--fs-label);
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  color: var(--c-text-dim);
+}
+
+/* Scroll hint */
+.gal-hero__scroll-hint {
+  position: absolute;
+  bottom: var(--sp-md);
+  right: var(--sp-md);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  color: var(--c-text-dim);
+  opacity: 0;
+}
+
+/* ───────────────────────────────────────────────
+   BAND WRAPPER (each grid section)
+─────────────────────────────────────────────── */
+.gal-band {
+  padding: var(--sp-sm) var(--sp-sm);
+}
+
+/* ───────────────────────────────────────────────
+   INTERLUDE LABELS
+─────────────────────────────────────────────── */
+.gal-interlude {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-md);
+  padding: var(--sp-xl) var(--sp-lg);
+  opacity: 0;
+}
+
+.gal-interlude__line {
+  flex: 1;
+  height: 1px;
+  background: var(--c-hairline);
+}
+
+.gal-interlude__text {
+  font-size: var(--fs-label);
+  font-weight: 300;
+  letter-spacing: 0.22em;
+  color: var(--c-text-dim);
+  white-space: nowrap;
+}
+
+/* ───────────────────────────────────────────────
+   BENTO GRIDS
+   All use CSS Grid, hand-crafted for each section.
+   NO border-radius anywhere.
+─────────────────────────────────────────────── */
+
+/* Grid A — 3 column, mixed heights */
+.gal-grid--a {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr 1.6fr;
+  grid-template-rows: 340px 340px;
+  gap: var(--sp-xs);
+}
+
+/* Grid B — 3 column asymmetric */
+.gal-grid--b {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1.3fr;
+  grid-template-rows: 320px 320px;
+  gap: var(--sp-xs);
+}
+
+/* Grid C — 3 column, editorial */
+.gal-grid--c {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  grid-template-rows: 360px 360px;
+  gap: var(--sp-xs);
+}
+
+/* Grid D — 3 column, cinematic */
+.gal-grid--d {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 1.4fr;
+  grid-template-rows: 340px 340px;
+  gap: var(--sp-xs);
+}
+
+/* ── CELL ───────────────────────────────────── */
+.gal-cell {
+  position: relative;
+  overflow: hidden;
+  background: var(--c-surface);
+  border-radius: 0; /* SHARP — no rounding */
+  cursor: none;
+  isolation: isolate;
+}
+
+/* Row-span 2 */
+.gal-cell--span-r2 {
+  grid-row: span 2;
+}
+
+/* Col-span 2 */
+.gal-cell--span-c2 {
+  grid-column: span 2;
+}
+
+/* ── PARALLAX IMAGE INNER ───────────────────── */
+.gal-cell__inner {
+  position: absolute;
+  /* Extend beyond cell for parallax travel */
+  inset: -18% 0;
+  overflow: hidden;
+}
+
+.gal-cell__img {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform-origin: center;
+  /* Scale up slightly so parallax shift stays within bounds */
+  transform: scale(1.15);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* Hover: subtle brightening */
+.gal-cell:hover .gal-cell__img {
+  transform: scale(1.22);
+  filter: brightness(1.08);
+}
+
+/* Dark gradient scrim at bottom */
+.gal-cell::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 55%;
+  background: linear-gradient(0deg,
+    rgba(5,4,10,0.85) 0%,
+    rgba(5,4,10,0.25) 60%,
+    transparent 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+/* Top hairline — amber accent that grows on hover */
+.gal-cell::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--c-amber);
+  z-index: 3;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gal-cell:hover::before {
+  width: 100%;
+}
+
+/* ── CELL META (number + tag) ───────────────── */
+.gal-cell__meta {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: var(--sp-sm) var(--sp-sm) calc(var(--sp-sm) + 2px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  z-index: 2;
+  transform: translateY(4px);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gal-cell:hover .gal-cell__meta {
+  transform: translateY(0);
+}
+
+.gal-cell__num {
+  font-size: clamp(1.4rem, 3vw, 2.5rem);
+  font-weight: 200;
+  color: rgba(255,255,255,0.15);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  transition: color 0.4s ease;
+}
+
+.gal-cell:hover .gal-cell__num {
+  color: rgba(255,255,255,0.35);
+}
+
+.gal-cell__tag {
+  font-size: var(--fs-label);
+  font-weight: 300;
+  letter-spacing: 0.14em;
+  color: var(--c-text-dim);
+  text-transform: uppercase;
+  transform: translateX(4px);
+  opacity: 0;
+  transition: opacity 0.4s ease 0.05s, transform 0.4s ease 0.05s, color 0.3s ease;
+}
+
+.gal-cell:hover .gal-cell__tag {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--c-amber);
+}
+
+/* ── ENTRY ANIMATION INITIAL STATE ─────────── */
+.gal-cell {
+  opacity: 0;
+  transform: translateY(32px);
+}
+
+/* ───────────────────────────────────────────────
+   GALLERY FOOTER CTA
+─────────────────────────────────────────────── */
+.gal-footer-cta {
+  padding: var(--sp-xl) var(--sp-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid var(--c-hairline);
+  min-height: 50svh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ambient amber glow */
+.gal-footer-cta::before {
+  content: '';
+  position: absolute;
+  bottom: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 200px;
+  background: radial-gradient(ellipse, rgba(242,166,90,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.gal-footer-cta__inner {
+  text-align: center;
+  max-width: 600px;
+}
+
+.gal-footer-cta__headline {
+  font-size: clamp(1.8rem, 4vw, 4rem);
+  font-weight: 200;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  color: var(--c-text);
+  margin-bottom: var(--sp-lg);
+  opacity: 0;
+}
+
+.gal-footer-cta__btn {
+  display: inline-flex;
+  opacity: 0;
+}
+
+/* ───────────────────────────────────────────────
+   LIGHTBOX
+─────────────────────────────────────────────── */
+.gal-lightbox__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 490;
+  background: rgba(3,3,8,0.97);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.gal-lightbox__backdrop.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.gal-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.gal-lightbox:not([hidden]) {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.gal-lightbox__stage {
+  position: relative;
+  max-width: 90vw;
+  max-height: 88svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gal-lightbox__img {
+  max-width: 90vw;
+  max-height: 88svh;
+  object-fit: contain;
+  display: block;
+  /* Sharp — no rounded corners */
+  border-radius: 0;
+  box-shadow: 0 0 80px rgba(0,0,0,0.8);
+}
+
+.gal-lightbox__close {
+  position: fixed;
+  top: var(--sp-md);
+  right: var(--sp-md);
+  z-index: 10;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--c-hairline);
+  background: rgba(5,4,10,0.85);
+  color: var(--c-text-muted);
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  cursor: none;
+}
+
+.gal-lightbox__close svg { width: 16px; height: 16px; }
+
+.gal-lightbox__close:hover {
+  border-color: var(--c-amber);
+  color: var(--c-amber);
+}
+
+.gal-lightbox__nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--c-hairline);
+  background: rgba(5,4,10,0.75);
+  color: var(--c-text-muted);
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  cursor: none;
+}
+
+.gal-lightbox__nav svg { width: 20px; height: 20px; }
+.gal-lightbox__nav--prev { left: var(--sp-md); }
+.gal-lightbox__nav--next { right: var(--sp-md); }
+
+.gal-lightbox__nav:hover {
+  border-color: var(--c-amber);
+  color: var(--c-amber);
+  background: rgba(242,166,90,0.1);
+}
+
+.gal-lightbox__info {
+  position: fixed;
+  bottom: var(--sp-md);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-md);
+  z-index: 10;
+}
+
+.gal-lightbox__counter,
+.gal-lightbox__tag {
+  font-size: var(--fs-label);
+  font-weight: 300;
+  letter-spacing: 0.14em;
+  color: var(--c-text-dim);
+}
+
+.gal-lightbox__tag {
+  color: var(--c-amber-deep);
+}
+
+/* ───────────────────────────────────────────────
+   RESPONSIVE
+─────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .gal-grid--a,
+  .gal-grid--b,
+  .gal-grid--c,
+  .gal-grid--d {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+
+  .gal-cell--span-r2 {
+    grid-row: span 1;
+  }
+
+  .gal-cell--portrait {
+    min-height: 420px;
+  }
+  .gal-cell--landscape {
+    min-height: 260px;
+  }
+}
+
+@media (max-width: 600px) {
+  .gal-grid--a,
+  .gal-grid--b,
+  .gal-grid--c,
+  .gal-grid--d {
+    grid-template-columns: 1fr;
+  }
+
+  .gal-cell--span-c2 {
+    grid-column: span 1;
+  }
+
+  .gal-cell--portrait  { min-height: 70vw; }
+  .gal-cell--landscape { min-height: 56vw; }
+
+  .gal-hero__headline {
+    font-size: clamp(2.8rem, 14vw, 5rem);
+  }
+
+  .gal-band {
+    padding: var(--sp-xs);
+  }
+
+  .gal-interlude {
+    padding: var(--sp-lg) var(--sp-md);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .gal-cell {
+    opacity: 1;
+    transform: none;
+  }
+  .gal-cell__img {
+    transform: scale(1) !important;
+    transition: none;
+  }
+}
