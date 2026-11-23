@@ -334,13 +334,11 @@
     var backdrop = document.getElementById('galLbBackdrop');
     var img      = document.getElementById('galLbImg');
     var counter  = document.getElementById('galLbCounter');
-    var tag      = document.getElementById('galLbTag');
 
     var d = IMAGES[idx];
     img.src = d.src;
-    img.alt = d.tag + ' — image ' + (idx + 1);
+    img.alt = 'Gallery image ' + (idx + 1);
     counter.textContent = pad(idx + 1) + ' / ' + pad(IMAGES.length);
-    tag.textContent = d.tag;
 
     lb.hidden = false;
     backdrop.classList.add('active');
@@ -369,14 +367,12 @@
     currentIdx = (currentIdx + dir + IMAGES.length) % IMAGES.length;
     var img     = document.getElementById('galLbImg');
     var counter = document.getElementById('galLbCounter');
-    var tag     = document.getElementById('galLbTag');
     var d       = IMAGES[currentIdx];
 
     gsap.to(img, { opacity: 0, x: dir * -30, duration: 0.25, ease: 'power3.in', onComplete: function() {
       img.src = d.src;
-      img.alt = d.tag + ' — image ' + (currentIdx + 1);
+      img.alt = 'Gallery image ' + (currentIdx + 1);
       counter.textContent = pad(currentIdx + 1) + ' / ' + pad(IMAGES.length);
-      tag.textContent = d.tag;
       gsap.fromTo(img, { opacity: 0, x: dir * 30 }, { opacity: 1, x: 0, duration: 0.35, ease: 'power3.out' });
     }});
   }

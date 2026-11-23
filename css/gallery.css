@@ -272,7 +272,7 @@
   width: 100%;
 }
 
-/* ── CELL META (number + tag) ───────────────── */
+/* ── CELL META (image number only) ─────────── */
 .gal-cell__meta {
   position: absolute;
   bottom: 0; left: 0; right: 0;
@@ -302,22 +302,6 @@
   color: rgba(255,255,255,0.35);
 }
 
-.gal-cell__tag {
-  font-size: var(--fs-label);
-  font-weight: 300;
-  letter-spacing: 0.14em;
-  color: var(--c-text-dim);
-  text-transform: uppercase;
-  transform: translateX(4px);
-  opacity: 0;
-  transition: opacity 0.4s ease 0.05s, transform 0.4s ease 0.05s, color 0.3s ease;
-}
-
-.gal-cell:hover .gal-cell__tag {
-  opacity: 1;
-  transform: translateX(0);
-  color: var(--c-amber);
-}
 
 /* ── ENTRY ANIMATION INITIAL STATE ─────────── */
 .gal-cell {
@@ -486,16 +470,11 @@
   z-index: 10;
 }
 
-.gal-lightbox__counter,
-.gal-lightbox__tag {
+.gal-lightbox__counter {
   font-size: var(--fs-label);
   font-weight: 300;
   letter-spacing: 0.14em;
   color: var(--c-text-dim);
-}
-
-.gal-lightbox__tag {
-  color: var(--c-amber-deep);
 }
 
 /* ───────────────────────────────────────────────
