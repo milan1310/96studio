@@ -3,46 +3,48 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="the96studio — Architectural visualization studio offering premium 3D renders, cinematic animation and interactive walkthroughs. Architecture, imagined differently." />
+  <meta name="description" content="the96studio Gallery — A curated collection of architectural visualization work spanning residences, interiors, hospitality and commercial projects." />
   <meta name="theme-color" content="#050505" />
-  <title>the96studio — Architectural Visualization</title>
+  <title>Gallery — the96studio</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/gallery.css" />
 </head>
-<body>
+<body class="gallery-page">
 
-  <!-- PRELOADER -->
-  <div id="preloader" aria-hidden="true">
-    <div class="preloader__progress-line">
-      <div class="preloader__progress-fill" id="preloaderFill"></div>
+  <!-- ══════════════════════════════════════
+       PRELOADER — 96 infinity mark drawing itself
+  ══════════════════════════════════════ -->
+  <div id="galPreloader" class="gal-preloader" aria-hidden="true">
+    <div class="gal-preloader__inner">
+      <svg class="gal-preloader__mark" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="the96studio">
+        <g class="gal-preloader__logo-mark">
+          <path class="gal-pre__path" d="M967.87,500c-4.85,191.37-237.7,289.83-373.07,154.47l-248.4-248.41c-82.32-82.32-223.94-22.44-226.88,93.94,1.26,49.57,27.67,88.89,63.94,111.33,48.78,30.19,115.39,29.86,162.63-17.09l-120.8,120.8c-37.14-5.24-72.86-19.89-103.27-42.28-51.68-38.03-88.01-98.38-89.9-172.77,4.85-191.37,237.7-289.83,373.07-154.47l248.4,248.41c82.32,82.32,223.94,22.44,226.88-93.94-1.25-49.29-27.37-88.45-63.33-110.96-48.83-30.57-115.81-30.44-163.24,16.71l120.8-120.8c37.37,5.27,73.31,20.08,103.84,42.7,51.37,38.05,87.45,98.24,89.32,172.35Z"/>
+          <path class="gal-pre__path" d="M942.21,117.45l-288.3,288.3c-.1.1-.21.2-.31.31l-34.28,34.28-59.66,59.66-59.66-59.66h0s59.66-59.66,59.66-59.66l36.16-36.16,227.06-227.07h119.32Z"/>
+          <polygon class="gal-pre__path" points="500 559.66 440.34 619.32 177.11 882.55 57.79 882.55 346.09 594.25 380.68 559.66 440.34 500 440.34 500 470.03 529.69 500 559.66"/>
+        </g>
+      </svg>
+      <span class="gal-preloader__label">the96studio</span>
     </div>
-    <div class="preloader__wordmark" id="preloaderWordmark">the96studio</div>
   </div>
 
-  <!-- CUSTOM CURSOR -->
-  <div id="cursor" aria-hidden="true">
-    <div class="cursor__ring"></div>
-    <span class="cursor__label"></span>
-  </div>
-
-  <!-- FILM GRAIN -->
+  <!-- GRAIN -->
   <canvas id="grainCanvas" aria-hidden="true"></canvas>
-
   <!-- VIGNETTE -->
   <div class="vignette" aria-hidden="true"></div>
 
   <!-- HEADER -->
-  <header id="siteHeader" role="banner">
-    <a href="#home" class="header__logo" aria-label="the96studio — home">the96studio</a>
+  <header id="siteHeader" role="banner" style="opacity:0;">
+    <a href="index.html" class="header__logo" aria-label="the96studio — home">the96studio</a>
     <nav class="header__nav" aria-label="Main navigation">
-      <a href="#work" class="nav__link" data-magnetic>WORK</a>
-      <a href="#services" class="nav__link" data-magnetic>SERVICES</a>
-      <a href="gallery.html" class="nav__link" data-magnetic>GALLERY</a>
-      <a href="#contact" class="nav__link" data-magnetic>CONTACT</a>
+      <a href="index.html#work"     class="nav__link" data-magnetic>WORK</a>
+      <a href="index.html#services" class="nav__link" data-magnetic>SERVICES</a>
+      <a href="gallery.html"        class="nav__link nav__link--active" data-magnetic>GALLERY</a>
+      <a href="index.html#contact"  class="nav__link" data-magnetic>CONTACT</a>
       <button class="nav__circle" id="menuToggle" aria-label="Menu" data-magnetic>
         <span class="nav__circle-inner"></span>
       </button>
@@ -50,390 +52,320 @@
   </header>
 
   <!-- SCROLL PROGRESS -->
-  <aside class="scroll-progress" aria-label="Scroll progress">
+  <aside class="scroll-progress visible" aria-label="Scroll progress" style="opacity:0;">
     <div class="scroll-progress__dots">
-      <button class="scroll-progress__dot active" data-section="0" aria-label="Home"></button>
-      <button class="scroll-progress__dot" data-section="1" aria-label="About"></button>
-      <button class="scroll-progress__dot" data-section="2" aria-label="Services"></button>
-      <button class="scroll-progress__dot" data-section="3" aria-label="Work"></button>
-      <button class="scroll-progress__dot" data-section="4" aria-label="Reveal"></button>
-      <button class="scroll-progress__dot" data-section="5" aria-label="Contact"></button>
+      <button class="scroll-progress__dot active" data-gal-section="hero"    aria-label="Top"></button>
+      <button class="scroll-progress__dot"         data-gal-section="grid-a" aria-label="Section A"></button>
+      <button class="scroll-progress__dot"         data-gal-section="grid-b" aria-label="Section B"></button>
+      <button class="scroll-progress__dot"         data-gal-section="grid-c" aria-label="Section C"></button>
+      <button class="scroll-progress__dot"         data-gal-section="grid-d" aria-label="Section D"></button>
     </div>
   </aside>
 
-  <main id="mainContent">
+  <!-- CUSTOM CURSOR -->
+  <div id="cursor" aria-hidden="true">
+    <div class="cursor__ring"></div>
+    <span class="cursor__label"></span>
+  </div>
+
+  <main style="opacity:0;" id="galMain">
 
     <!-- ══════════════════════════════════════
-         01. HOME / ARRIVAL
+         GALLERY HERO
     ══════════════════════════════════════ -->
-    <section id="home" class="section section--home" data-section-index="0" aria-label="Home">
-      <div class="home__bg-layer home__bg--img" aria-hidden="true"></div>
-      <div class="home__bg-layer home__bg--overlay" aria-hidden="true"></div>
-      <div class="home__bg-layer home__bg--stars" aria-hidden="true"></div>
-
-      <!-- Arc SVG -->
-      <div class="home__arc-wrapper" aria-hidden="true">
-        <svg class="home__arc-svg" viewBox="0 0 900 520" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <filter id="arcBlurSoft"><feGaussianBlur in="SourceGraphic" stdDeviation="3"/></filter>
-            <filter id="arcBlurHeavy"><feGaussianBlur in="SourceGraphic" stdDeviation="10"/></filter>
-            <radialGradient id="arcGlow" cx="50%" cy="100%" r="60%">
-              <stop offset="0%" stop-color="#f2a65a" stop-opacity="0.9"/>
-              <stop offset="50%" stop-color="#ff8a3d" stop-opacity="0.4"/>
-              <stop offset="100%" stop-color="#ff8a3d" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
-          <ellipse class="arc__bloom" cx="450" cy="498" rx="220" ry="55" fill="url(#arcGlow)" filter="url(#arcBlurHeavy)" opacity="0"/>
-          <path class="arc__path arc__path--glow"
-            d="M 130 500 Q 450 120 770 500"
-            fill="none" stroke="#f2a65a" stroke-width="4"
-            filter="url(#arcBlurSoft)"
-            stroke-dasharray="1250" stroke-dashoffset="1250" opacity="0"/>
-          <path class="arc__path arc__path--sharp"
-            d="M 130 500 Q 450 120 770 500"
-            fill="none" stroke="#f2a65a" stroke-width="1.2"
-            stroke-dasharray="1250" stroke-dashoffset="1250" opacity="0"/>
-          <circle class="arc__sun" cx="450" cy="490" r="32" fill="#f2a65a" filter="url(#arcBlurHeavy)" opacity="0"/>
-          <circle class="arc__sun-core" cx="450" cy="490" r="7" fill="#fffaf0" opacity="0"/>
-        </svg>
-      </div>
-
-      <span class="section__label home-label">01 / ARRIVAL</span>
-
-      <div class="home__content">
-        <h1 class="home__headline">
-          <span class="line-wrap"><span class="line">Every idea</span></span>
-          <span class="line-wrap"><span class="line">finds a horizon.</span></span>
-        </h1>
-        <p class="home__subline">Architecture, imagined differently.</p>
-      </div>
-
-      <div class="home__scroll-cue" id="scrollCue">
-        <span class="scroll-cue__label">SCROLL</span>
-        <div class="scroll-cue__line" aria-hidden="true">
-          <div class="scroll-cue__dot"></div>
+    <section class="gal-hero" id="gal-hero" aria-label="Gallery header">
+      <div class="gal-hero__bg" aria-hidden="true"></div>
+      <div class="gal-hero__split">
+        <div class="gal-hero__left">
+          <span class="gal-hero__eyebrow">OUR WORKS</span>
+          <h1 class="gal-hero__headline">
+            <span class="line-wrap"><span class="line">Spaces,</span></span>
+            <span class="line-wrap"><span class="line">Visualised.</span></span>
+          </h1>
+        </div>
+        <div class="gal-hero__divider" aria-hidden="true"></div>
+        <div class="gal-hero__right">
+          <p class="gal-hero__desc">A curated collection of 3D Renders,<br>Animations and Interactive Experiences.</p>
         </div>
       </div>
     </section>
 
     <!-- ══════════════════════════════════════
-         02. ABOUT
+         BENTO GRID A  — 5 images
+         [portrait r2] [landscape] [landscape]
+                        [landscape] [landscape]
     ══════════════════════════════════════ -->
-    <section id="about" class="section section--about" data-section-index="1" aria-label="About">
-      <span class="section__label">02 / DIRECTION</span>
-      <div class="about__inner">
-        <div class="about__text-col">
-          <h2 class="about__heading">
-            <span class="line-wrap"><span class="line">Somewhere between</span></span>
-            <span class="line-wrap"><span class="line">direction</span></span>
-            <span class="line-wrap"><span class="line">and possibility.</span></span>
-          </h2>
-          <div class="about__divider"></div>
-          <div class="about__body">
-            <p>We explore what happens when perspective changes. Light becomes atmosphere. Space becomes emotion. Architecture becomes experience.</p>
-            <p class="about__body--accent">the96studio exists somewhere between what is imagined and what becomes real.</p>
+    <section class="gal-band" id="grid-a" aria-label="Gallery section A">
+      <div class="gal-grid gal-grid--a">
+
+        <!-- 01 portrait r2 -->
+        <div class="gal-cell gal-cell--portrait gal-cell--span-r2" data-index="1">
+          <div class="gal-cell__inner">
+            <div class="gal-cell__img" style="background-image:url('')" role="img" aria-label="Gallery image 1"></div>
           </div>
-          <div class="about__footer">
-            <p class="about__footer-label">There is a story behind the name.</p>
-            <button class="btn-circle" id="aboutScrollBtn" aria-label="Scroll to The Reveal" data-magnetic>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
-                <path d="M12 5v14M5 12l7 7 7-7"/>
-              </svg>
-            </button>
-          </div>
+          <div class="gal-cell__meta"><span class="gal-cell__num">01</span></div>
+          <img class="gal-cell__watermark" src="assets/img/logo-mark.webp" alt="" aria-hidden="true"/>
         </div>
-        <div class="about__image-col">
-          <div class="about__image-clip">
-            <div class="about__image-inner" role="img" aria-label="Concrete terrace overlooking a sunset sea"></div>
+
+        <!-- 02 landscape -->
+        <div class="gal-cell gal-cell--landscape" data-index="2">
+          <div class="gal-cell__inner">
+            <div class="gal-cell__img" style="background-image:url('assets/img/gallery/IMG_0146.webp')" role="img" aria-label="Gallery image 2"></div>
           </div>
+          <div class="gal-cell__meta"><span class="gal-cell__num">02</span></div>
+          <img class="gal-cell__watermark" src="assets/img/logo-mark.webp" alt="" aria-hidden="true"/>
         </div>
-      </div>
-    </section>
 
-    <!-- ══════════════════════════════════════
-         03. SERVICES
-    ══════════════════════════════════════ -->
-    <section id="services" class="section section--services" data-section-index="2" aria-label="Services">
-      <span class="section__label">03 / SERVICES</span>
-      <div class="services__panels">
-
-        <article class="service-panel" data-panel="0">
-          <div class="service-panel__bg sp-bg-0" aria-hidden="true"></div>
-          <div class="service-panel__content">
-            <span class="service-panel__num">01</span>
-            <h2 class="service-panel__title">3D RENDERS</h2>
-            <p class="service-panel__tagline">Architecture, before reality.</p>
+        <!-- 03 landscape NEW — gold figure lamp -->
+        <div class="gal-cell gal-cell--landscape" data-index="3">
+          <div class="gal-cell__inner">
+            <div class="gal-cell__img" style="background-image:url('assets/img/gallery/NEW_01.webp')" role="img" aria-label="Gallery image 3"></div>
           </div>
-          <button class="btn-circle service-panel__btn" aria-label="Explore 3D Renders" data-magnetic data-cursor-label="EXPLORE">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
-        </article>
+          <div class="gal-cell__meta"><span class="gal-cell__num">03</span></div>
+          <img class="gal-cell__watermark" src="assets/img/logo-mark.webp" alt="" aria-hidden="true"/>
+        </div>
 
-        <article class="service-panel" data-panel="1">
-          <div class="service-panel__bg sp-bg-1" aria-hidden="true"></div>
-          <div class="service-panel__content">
-            <span class="service-panel__num">02</span>
-            <h2 class="service-panel__title">ANIMATION</h2>
-            <p class="service-panel__tagline">When architecture starts moving.</p>
+        <!-- 04 portrait -->
+        <div class="gal-cell gal-cell--portrait" data-index="4">
+          <div class="gal-cell__inner">
+            <div class="gal-cell__img" style="background-image:url('assets/img/gallery/IMG_0148.webp')" role="img" aria-label="Gallery image 4"></div>
           </div>
-          <button class="btn-play" id="playBtn" aria-label="Play animation showreel" data-cursor-label="PLAY" data-magnetic>
-            <svg viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="#f2a65a"/></svg>
-          </button>
-          <button class="btn-circle service-panel__btn" aria-label="Explore Animation" data-magnetic data-cursor-label="EXPLORE">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
-        </article>
+          <div class="gal-cell__meta"><span class="gal-cell__num">04</span></div>
+          <img class="gal-cell__watermark" src="assets/img/logo-mark.webp" alt="" aria-hidden="true"/>
+        </div>
 
-        <article class="service-panel" data-panel="2">
-          <div class="service-panel__bg sp-bg-2" aria-hidden="true"></div>
-          <div class="service-panel__content">
-            <span class="service-panel__num">03</span>
-            <h2 class="service-panel__title">INTERACTIVE<br>WALKTHROUGHS</h2>
-            <p class="service-panel__tagline">Don't just look at it. Enter it.</p>
+        <!-- 05 landscape wide — NEW bedroom pendant -->
+        <div class="gal-cell gal-cell--landscape gal-cell--span-c2" data-index="5">
+          <div class="gal-cell__inner">
+            <div class="gal-cell__img" style="background-image:url('assets/img/gallery/NEW_02.webp')" role="img" aria-label="Gallery image 5"></div>
           </div>
-          <button class="btn-circle service-panel__btn" aria-label="Explore Walkthroughs" data-magnetic data-cursor-label="EXPLORE">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
-        </article>
+          <div class="gal-cell__meta"><span class="gal-cell__num">05</span></div>
+          <img class="gal-cell__watermark" src="assets/img/logo-mark.webp" alt="" aria-hidden="true"/>
+        </div>
 
       </div>
     </section>
 
+    <div class="gal-interlude" id="grid-b">
+      <div class="gal-interlude__line" aria-hidden="true"></div>
+      <span class="gal-interlude__text">LIGHT &amp; MATERIAL</span>
+      <div class="gal-interlude__line" aria-hidden="true"></div>
+    </div>
+
     <!-- ══════════════════════════════════════
-         04. SELECTED WORK
+         BENTO GRID B — 5 images
     ══════════════════════════════════════ -->
-    <section id="work" class="section section--work" data-section-index="3" aria-label="Selected Work">
-      <span class="section__label">04 / SELECTED WORK</span>
-      <div class="work__outer" id="workOuter">
-        <div class="work__track" id="workTrack">
+    <section class="gal-band" aria-label="Gallery section B">
+      <div class="gal-grid gal-grid--b">
 
-          <article class="work-card" data-card="0" tabindex="0" aria-label="Residence project" data-cursor-label="VIEW">
-            <div class="work-card__image wc-img-0" aria-hidden="true"></div>
-            <div class="work-card__overlay" aria-hidden="true"></div>
-            <div class="work-card__content">
-              <span class="work-card__num">01</span>
-              <h3 class="work-card__title">RESIDENCE</h3>
-              <div class="work-card__line" aria-hidden="true"></div>
-            </div>
-          </article>
-
-          <article class="work-card" data-card="1" tabindex="0" aria-label="Hospitality project" data-cursor-label="VIEW">
-            <div class="work-card__image wc-img-1" aria-hidden="true"></div>
-            <div class="work-card__overlay" aria-hidden="true"></div>
-            <div class="work-card__content">
-              <span class="work-card__num">02</span>
-              <h3 class="work-card__title">HOSPITALITY</h3>
-              <div class="work-card__line" aria-hidden="true"></div>
-            </div>
-          </article>
-
-          <article class="work-card" data-card="2" tabindex="0" aria-label="Interior project" data-cursor-label="VIEW">
-            <div class="work-card__image wc-img-2" aria-hidden="true"></div>
-            <div class="work-card__overlay" aria-hidden="true"></div>
-            <div class="work-card__content">
-              <span class="work-card__num">03</span>
-              <h3 class="work-card__title">INTERIOR</h3>
-              <div class="work-card__line" aria-hidden="true"></div>
-            </div>
-          </article>
-
-          <article class="work-card" data-card="3" tabindex="0" aria-label="Commercial project" data-cursor-label="VIEW">
-            <div class="work-card__image wc-img-3" aria-hidden="true"></div>
-            <div class="work-card__overlay" aria-hidden="true"></div>
-            <div class="work-card__content">
-              <span class="work-card__num">04</span>
-              <h3 class="work-card__title">COMMERCIAL</h3>
-              <div class="work-card__line" aria-hidden="true"></div>
-            </div>
-          </article>
-
+        <!-- 06 landscape wide -->
+        <div class="gal-cell gal-cell--landscape gal-cell--span-c2" data-index="6">
+          <div class="gal-cell__inner">
+            <div class="gal-cell__img" style="background-image:url('assets/img/gallery/IMG_0150.webp')" role="img" aria-label="Gallery image 6"></div>
+          </div>
+          <div class="gal-cell__meta"><span class="gal-cell__num">06</span></div>
+          <img class="gal-cell__watermark" src="assets/img/logo-mark.webp" alt="" aria-hidden="true"/>
         </div>
-      </div>
-      <div class="work__footer">
-        <a href="#" class="work__explore-link" data-magnetic>
-          <span class="work__explore-circle">◯</span> EXPLORE PROJECTS
-        </a>
-        <div class="work__thumbnails" role="tablist" aria-label="Project thumbnails">
-          <button class="work__thumb work__thumb--active" data-thumb="0" role="tab" aria-label="Residence"></button>
-          <button class="work__thumb" data-thumb="1" role="tab" aria-label="Hospitality"></button>
-          <button class="work__thumb" data-thumb="2" role="tab" aria-label="Interior"></button>
-          <button class="work__thumb" data-thumb="3" role="tab" aria-label="Commercial"></button>
+
+        <!-- 07 portrait r2 -->
+        <div class="gal-cell gal-cell--portrait gal-cell--span-r2" data-index="7">
+          <div class="gal-cell__inner">
+            <div class="gal-cell__img" style="background-image:url('assets/img/gallery/IMG_0149.webp')" role="img" aria-label="Gallery image 7"></div>
+          </div>
+          <div class="gal-cell__meta"><span class="gal-cell__num">07</span></div>
+          <img class="gal-cell__watermark" src="assets/img/logo-mark.webp" alt="" aria-hidden="true"/>
         </div>
+
+        <!-- 08 portrait -->
+        <div class="gal-cell gal-cell--portrait" data-index="8">
+          <div class="gal-cell__inner">
+            <div class="gal-cell__img" style="background-image:url('assets/img/gallery/IMG_0151.webp')" role="img" aria-label="Gallery image 8"></div>
+          </div>
+          <div class="gal-cell__meta"><span class="gal-cell__num">08</span></div>
+          <img class="gal-cell__watermark" src="assets/img/logo-mark.webp" alt="" aria-hidden="true"/>
+        </div>
+
+        <!-- 09 landscape -->
+        <div class="gal-cell gal-cell--landscape" data-index="9">
+          <div class="gal-cell__inner">
+            <div class="gal-cell__img" style="background-image:url('assets/img/gallery/IMG_0152.webp')" role="img" aria-label="Gallery image 9"></div>
+          </div>
+          <div class="gal-cell__meta"><span class="gal-cell__num">09</span></div>
+          <img class="gal-cell__watermark" src="assets/img/logo-mark.webp" alt="" aria-hidden="true"/>
+        </div>
+
+        <!-- 10 portrait -->
+        <div class="gal-cell gal-cell--portrait" data-index="10">
+          <div class="gal-cell__inner">
+            <div class="gal-cell__img" style="background-image:url('assets/img/gallery/IMG_0153.webp')" role="img" aria-label="Gallery image 10"></div>
+          </div>
+          <div class="gal-cell__meta"><span class="gal-cell__num">10</span></div>
+          <img class="gal-cell__watermark" src="assets/img/logo-mark.webp" alt="" aria-hidden="true"/>
+        </div>
+
       </div>
     </section>
 
+    <div class="gal-interlude" id="grid-c">
+      <div class="gal-interlude__line" aria-hidden="true"></div>
+      <span class="gal-interlude__text">SPACE &amp; FORM</span>
+      <div class="gal-interlude__line" aria-hidden="true"></div>
+    </div>
+
     <!-- ══════════════════════════════════════
-         05. THE REVEAL
+         BENTO GRID C — 5 images
     ══════════════════════════════════════ -->
-    <section id="reveal" class="section section--reveal" data-section-index="4" aria-label="The Reveal">
-      <span class="section__label">05 / THE REVEAL</span>
-      <div class="reveal__scene" aria-hidden="true">
-        <div class="reveal__horizon-glow"></div>
-      </div>
-      <div class="reveal__logo-comp" aria-label="Nine infinity six">
-        <span class="reveal__digit" id="digit9">9</span>
-        <div class="reveal__infinity-wrap">
-          <svg class="reveal__infinity-svg" viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="infGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#c9783a"/>
-                <stop offset="50%" stop-color="#f2a65a"/>
-                <stop offset="100%" stop-color="#c9783a"/>
-              </linearGradient>
-              <filter id="infGlow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
-                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-              </filter>
-            </defs>
-            <circle class="inf__origin" cx="120" cy="50" r="3" fill="#f2a65a" opacity="0"/>
-            <path class="inf__path inf__path--glow"
-              d="M 60 50 C 60 20, 100 20, 120 50 C 140 80, 180 80, 180 50 C 180 20, 140 20, 120 50 C 100 80, 60 80, 60 50 Z"
-              fill="none" stroke="url(#infGrad)" stroke-width="7"
-              stroke-dasharray="620" stroke-dashoffset="620"
-              filter="url(#infGlow)" opacity="0"/>
-            <path class="inf__path inf__path--sharp"
-              d="M 60 50 C 60 20, 100 20, 120 50 C 140 80, 180 80, 180 50 C 180 20, 140 20, 120 50 C 100 80, 60 80, 60 50 Z"
-              fill="none" stroke="url(#infGrad)" stroke-width="1.5"
-              stroke-dasharray="620" stroke-dashoffset="620" opacity="0"/>
-          </svg>
+    <section class="gal-band" aria-label="Gallery section C">
+      <div class="gal-grid gal-grid--c">
+
+        <!-- 11 landscape wide -->
+        <div class="gal-cell gal-cell--landscape gal-cell--span-c2" data-index="11">
+          <div class="gal-cell__inner">
+            <div class="gal-cell__img" style="background-image:url('assets/img/gallery/IMG_0154.webp')" role="img" aria-label="Gallery image 11"></div>
+          </div>
+          <div class="gal-cell__meta"><span class="gal-cell__num">11</span></div>
+          <img class="gal-cell__watermark" src="assets/img/logo-mark.webp" alt="" aria-hidden="true"/>
         </div>
-        <span class="reveal__digit" id="digit6">6</span>
-      </div>
-      <div class="reveal__copy">
-        <h2 class="reveal__headline">
-          <span class="line-wrap"><span class="line">Two numbers.</span></span>
-          <span class="line-wrap"><span class="line">One idea.</span></span>
-          <span class="line-wrap"><span class="line">Infinite outcomes.</span></span>
-        </h2>
-        <p class="reveal__subline">And somewhere in that moment, a direction became a name.</p>
-        <div class="reveal__wordmark">the96studio</div>
+
+        <!-- 12 portrait r2 -->
+        <div class="gal-cell gal-cell--portrait gal-cell--span-r2" data-index="12">
+          <div class="gal-cell__inner">
+            <div class="gal-cell__img" style="background-image:url('assets/img/gallery/IMG_0155.webp')" role="img" aria-label="Gallery image 12"></div>
+          </div>
+          <div class="gal-cell__meta"><span class="gal-cell__num">12</span></div>
+          <img class="gal-cell__watermark" src="assets/img/logo-mark.webp" alt="" aria-hidden="true"/>
+        </div>
+
+        <!-- 13 landscape NEW — ceramic face vases -->
+        <div class="gal-cell gal-cell--landscape" data-index="13">
+          <div class="gal-cell__inner">
+            <div class="gal-cell__img" style="background-image:url('assets/img/gallery/NEW_03.webp')" role="img" aria-label="Gallery image 13"></div>
+          </div>
+          <div class="gal-cell__meta"><span class="gal-cell__num">13</span></div>
+          <img class="gal-cell__watermark" src="assets/img/logo-mark.webp" alt="" aria-hidden="true"/>
+        </div>
+
+        <!-- 14 landscape -->
+        <div class="gal-cell gal-cell--landscape" data-index="14">
+          <div class="gal-cell__inner">
+            <div class="gal-cell__img" style="background-image:url('assets/img/gallery/IMG_0156.webp')" role="img" aria-label="Gallery image 14"></div>
+          </div>
+          <div class="gal-cell__meta"><span class="gal-cell__num">14</span></div>
+          <img class="gal-cell__watermark" src="assets/img/logo-mark.webp" alt="" aria-hidden="true"/>
+        </div>
+
+        <!-- 15 portrait -->
+        <div class="gal-cell gal-cell--portrait" data-index="15">
+          <div class="gal-cell__inner">
+            <div class="gal-cell__img" style="background-image:url('assets/img/gallery/IMG_0158.webp')" role="img" aria-label="Gallery image 15"></div>
+          </div>
+          <div class="gal-cell__meta"><span class="gal-cell__num">15</span></div>
+          <img class="gal-cell__watermark" src="assets/img/logo-mark.webp" alt="" aria-hidden="true"/>
+        </div>
+
       </div>
     </section>
 
+    <div class="gal-interlude" id="grid-d">
+      <div class="gal-interlude__line" aria-hidden="true"></div>
+      <span class="gal-interlude__text">HORIZON &amp; LIGHT</span>
+      <div class="gal-interlude__line" aria-hidden="true"></div>
+    </div>
+
     <!-- ══════════════════════════════════════
-         06. CONTACT
+         BENTO GRID D — 5 images
     ══════════════════════════════════════ -->
-    <section id="contact" class="section section--contact" data-section-index="5" aria-label="Contact">
-      <div class="contact__bg" aria-hidden="true"></div>
-      <div class="contact__scrim" aria-hidden="true"></div>
-      <span class="section__label">06 / CONTACT</span>
-      <div class="contact__inner">
-        <h2 class="contact__headline">
-          <span class="line-wrap"><span class="line">HAVE AN IDEA?</span></span>
-          <span class="line-wrap"><span class="line">LET'S SEE WHERE</span></span>
-          <span class="line-wrap"><span class="line">IT TAKES US.</span></span>
-        </h2>
-        <div class="contact__divider"></div>
-        <button class="btn-pill" id="startProjectBtn" aria-label="Start a project" data-magnetic>
+    <section class="gal-band" aria-label="Gallery section D">
+      <div class="gal-grid gal-grid--d">
+
+        <!-- 16 portrait r2 -->
+        <div class="gal-cell gal-cell--portrait gal-cell--span-r2" data-index="16">
+          <div class="gal-cell__inner">
+            <div class="gal-cell__img" style="background-image:url('assets/img/gallery/IMG_0160.webp')" role="img" aria-label="Gallery image 16"></div>
+          </div>
+          <div class="gal-cell__meta"><span class="gal-cell__num">16</span></div>
+          <img class="gal-cell__watermark" src="assets/img/logo-mark.webp" alt="" aria-hidden="true"/>
+        </div>
+
+        <!-- 17 landscape wide -->
+        <div class="gal-cell gal-cell--landscape gal-cell--span-c2" data-index="17">
+          <div class="gal-cell__inner">
+            <div class="gal-cell__img" style="background-image:url('assets/img/gallery/IMG_0159.webp')" role="img" aria-label="Gallery image 17"></div>
+          </div>
+          <div class="gal-cell__meta"><span class="gal-cell__num">17</span></div>
+          <img class="gal-cell__watermark" src="assets/img/logo-mark.webp" alt="" aria-hidden="true"/>
+        </div>
+
+        <!-- 18 landscape NEW — dining table -->
+        <div class="gal-cell gal-cell--landscape" data-index="18">
+          <div class="gal-cell__inner">
+            <div class="gal-cell__img" style="background-image:url('assets/img/gallery/NEW_04.webp')" role="img" aria-label="Gallery image 18"></div>
+          </div>
+          <div class="gal-cell__meta"><span class="gal-cell__num">18</span></div>
+          <img class="gal-cell__watermark" src="assets/img/logo-mark.webp" alt="" aria-hidden="true"/>
+        </div>
+
+        <!-- 19 portrait -->
+        <div class="gal-cell gal-cell--portrait" data-index="19">
+          <div class="gal-cell__inner">
+            <div class="gal-cell__img" style="background-image:url('assets/img/gallery/IMG_0162.webp')" role="img" aria-label="Gallery image 19"></div>
+          </div>
+          <div class="gal-cell__meta"><span class="gal-cell__num">19</span></div>
+          <img class="gal-cell__watermark" src="assets/img/logo-mark.webp" alt="" aria-hidden="true"/>
+        </div>
+
+        <!-- 20 landscape wide — cinematic closer -->
+        <div class="gal-cell gal-cell--landscape gal-cell--span-c2" data-index="20">
+          <div class="gal-cell__inner">
+            <div class="gal-cell__img" style="background-image:url('assets/img/gallery/IMG_0163.webp')" role="img" aria-label="Gallery image 20"></div>
+          </div>
+          <div class="gal-cell__meta"><span class="gal-cell__num">20</span></div>
+          <img class="gal-cell__watermark" src="assets/img/logo-mark.webp" alt="" aria-hidden="true"/>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FOOTER CTA -->
+    <section class="gal-footer-cta" aria-label="Start a project">
+      <div class="gal-footer-cta__inner">
+        <span class="section__label" style="position:static;display:block;margin-bottom:var(--sp-sm);">THE96STUDIO</span>
+        <h2 class="gal-footer-cta__headline">Every frame begins with an idea.</h2>
+        <a href="index.html#contact" class="btn-pill gal-footer-cta__btn" data-magnetic>
           <span>START A PROJECT</span>
-          <span class="btn-pill__arrow" aria-hidden="true">→</span>
-          <span class="btn-pill__fill" aria-hidden="true"></span>
-        </button>
-        <p class="contact__services">3D RENDERS · ANIMATION · INTERACTIVE WALKTHROUGHS</p>
+          <span class="btn-pill__arrow">→</span>
+          <span class="btn-pill__fill"></span>
+        </a>
       </div>
-      <footer class="contact__footer" role="contentinfo">
-        <p class="contact__footer-tagline">INFINITE OUTCOMES. ONE CONSTANT.</p>
-        <p class="contact__footer-brand">the96studio</p>
-      </footer>
     </section>
 
   </main>
 
-  <!-- VIDEO MODAL -->
-  <div id="videoModal" class="modal modal--video" role="dialog" aria-modal="true" aria-label="Video showreel" hidden>
-    <button class="modal__close" id="videoModalClose" aria-label="Close video">
+  <!-- LIGHTBOX -->
+  <div id="galLightbox" class="gal-lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
+    <button class="gal-lightbox__close" id="galLightboxClose" aria-label="Close image">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M18 6L6 18M6 6l12 12"/></svg>
     </button>
-    <div class="modal__video-wrap">
-      <video id="modalVideo" muted loop playsinline preload="none">
-        <source src="assets/video/showreel.mp4" type="video/mp4"/>
-      </video>
-      <div class="modal__video-placeholder" aria-hidden="true"></div>
-    </div>
-  </div>
-
-  <!-- PROJECT MODAL -->
-  <div id="projectModal" class="modal modal--project" role="dialog" aria-modal="true" aria-label="Project detail" hidden>
-    <button class="modal__close" id="projectModalClose" aria-label="Close project">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    <button class="gal-lightbox__nav gal-lightbox__nav--prev" id="galLbPrev" aria-label="Previous image">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M15 18l-6-6 6-6"/></svg>
     </button>
-    <div class="project-modal__image" id="projectModalImage"></div>
-    <div class="project-modal__content">
-      <span class="project-modal__num" id="projectModalNum">01</span>
-      <h2 class="project-modal__title" id="projectModalTitle">RESIDENCE</h2>
-      <div class="project-modal__divider"></div>
-      <p class="project-modal__desc" id="projectModalDesc"></p>
-      <div class="project-modal__controls">
-        <button class="btn-circle" id="prevProject" aria-label="Previous project" data-magnetic>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-        </button>
-        <button class="btn-circle" id="nextProject" aria-label="Next project" data-magnetic>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </button>
-      </div>
+    <div class="gal-lightbox__stage">
+      <img class="gal-lightbox__img" id="galLbImg" src="" alt="" />
     </div>
-  </div>
-
-  <!-- CONTACT PANEL -->
-  <div id="contactPanel" class="contact-panel" role="dialog" aria-modal="true" aria-label="Start a project" hidden>
-    <button class="contact-panel__close btn-circle" id="contactPanelClose" aria-label="Close panel" data-magnetic>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    <button class="gal-lightbox__nav gal-lightbox__nav--next" id="galLbNext" aria-label="Next image">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 18l6-6-6-6"/></svg>
     </button>
-    <div class="contact-panel__inner">
-      <span class="section__label" style="position:static;display:block;margin-bottom:1rem;">START A PROJECT</span>
-      <h2 class="contact-panel__heading">Tell us about your idea.</h2>
-      <!-- TODO: Replace with real endpoint (Formspree, Netlify Forms, EmailJS, etc.) -->
-      <form class="project-form" id="projectForm" novalidate>
-        <div class="form-field">
-          <input class="form-field__input" type="text" id="fieldName" name="name" required placeholder=" " />
-          <label class="form-field__label" for="fieldName">Your name</label>
-          <div class="form-field__line"></div>
-          <span class="form-field__error"></span>
-        </div>
-        <div class="form-field">
-          <input class="form-field__input" type="email" id="fieldEmail" name="email" required placeholder=" " />
-          <label class="form-field__label" for="fieldEmail">Email address</label>
-          <div class="form-field__line"></div>
-          <span class="form-field__error"></span>
-        </div>
-        <fieldset class="form-chips">
-          <legend class="form-chips__legend">Project type</legend>
-          <div class="form-chips__wrap">
-            <label class="chip"><input type="radio" name="type" value="residence"/> Residence</label>
-            <label class="chip"><input type="radio" name="type" value="hospitality"/> Hospitality</label>
-            <label class="chip"><input type="radio" name="type" value="interior"/> Interior</label>
-            <label class="chip"><input type="radio" name="type" value="commercial"/> Commercial</label>
-          </div>
-        </fieldset>
-        <div class="form-field">
-          <textarea class="form-field__input form-field__textarea" id="fieldMessage" name="message" rows="4" placeholder=" "></textarea>
-          <label class="form-field__label" for="fieldMessage">Your message</label>
-          <div class="form-field__line"></div>
-        </div>
-        <button class="btn-pill btn-pill--submit" type="submit" data-magnetic>
-          <span>SEND ENQUIRY</span>
-          <span class="btn-pill__arrow">→</span>
-          <span class="btn-pill__fill"></span>
-        </button>
-        <div class="form-success" id="formSuccess" hidden>
-          <div class="form-success__icon">✦</div>
-          <p class="form-success__msg">Thank you. We'll be in touch soon.</p>
-        </div>
-      </form>
+    <div class="gal-lightbox__info">
+      <span class="gal-lightbox__counter" id="galLbCounter">01 / 20</span>
     </div>
   </div>
+  <div id="galLbBackdrop" class="gal-lightbox__backdrop" aria-hidden="true"></div>
 
-  <!-- BACKDROP -->
-  <div id="modalBackdrop" class="modal-backdrop" aria-hidden="true"></div>
-
-  <!-- ── SCRIPTS (loaded at end of body, not deferred) ── -->
-  <!-- GSAP -->
+  <!-- SCRIPTS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
-  <!-- Lenis — served locally (CDN @studio-freight is discontinued) -->
   <script src="js/vendor/lenis.min.js"></script>
-  <!-- Main app -->
-  <script src="js/app.js"></script>
+  <script src="js/gallery.js"></script>
+
 </body>
 </html>

@@ -24,30 +24,110 @@
   gsap.registerPlugin(ScrollTrigger);
 
   /* ══════════════════════════════════════════════════════════
-     IMAGE MANIFEST (order matches DOM)
+     IMAGE MANIFEST — matches DOM order exactly (20 images)
   ══════════════════════════════════════════════════════════ */
   var IMAGES = [
-    { src: 'assets/img/gallery/IMG_0144.PNG', tag: 'INTERIOR' },
-    { src: 'assets/img/gallery/IMG_0146.PNG', tag: 'RESIDENCE' },
-    { src: 'assets/img/gallery/IMG_0147.PNG', tag: 'HOSPITALITY' },
-    { src: 'assets/img/gallery/IMG_0145.PNG', tag: 'DETAIL' },
-    { src: 'assets/img/gallery/IMG_0149.PNG', tag: 'ATMOSPHERE' },
-    { src: 'assets/img/gallery/IMG_0150.PNG', tag: 'COMMERCIAL' },
-    { src: 'assets/img/gallery/IMG_0148.PNG', tag: 'INTERIOR' },
-    { src: 'assets/img/gallery/IMG_0151.PNG', tag: 'DETAIL' },
-    { src: 'assets/img/gallery/IMG_0152.PNG', tag: 'RESIDENCE' },
-    { src: 'assets/img/gallery/IMG_0153.PNG', tag: 'ATMOSPHERE' },
-    { src: 'assets/img/gallery/IMG_0154.PNG', tag: 'HOSPITALITY' },
-    { src: 'assets/img/gallery/IMG_0155.PNG', tag: 'DETAIL' },
-    { src: 'assets/img/gallery/IMG_0157.PNG', tag: 'INTERIOR' },
-    { src: 'assets/img/gallery/IMG_0156.PNG', tag: 'RESIDENCE' },
-    { src: 'assets/img/gallery/IMG_0158.PNG', tag: 'ATMOSPHERE' },
-    { src: 'assets/img/gallery/IMG_0160.PNG', tag: 'INTERIOR' },
-    { src: 'assets/img/gallery/IMG_0159.PNG', tag: 'RESIDENCE' },
-    { src: 'assets/img/gallery/IMG_0161.PNG', tag: 'COMMERCIAL' },
-    { src: 'assets/img/gallery/IMG_0162.PNG', tag: 'DETAIL' },
-    { src: 'assets/img/gallery/IMG_0163.PNG', tag: 'ATMOSPHERE' },
+    { src: 'assets/img/gallery/IMG_0144.webp' },
+    { src: 'assets/img/gallery/IMG_0146.webp' },
+    { src: 'assets/img/gallery/NEW_01.webp' },
+    { src: 'assets/img/gallery/IMG_0148.webp' },
+    { src: 'assets/img/gallery/NEW_02.webp' },
+    { src: 'assets/img/gallery/IMG_0150.webp' },
+    { src: 'assets/img/gallery/IMG_0149.webp' },
+    { src: 'assets/img/gallery/IMG_0151.webp' },
+    { src: 'assets/img/gallery/IMG_0152.webp' },
+    { src: 'assets/img/gallery/IMG_0153.webp' },
+    { src: 'assets/img/gallery/IMG_0154.webp' },
+    { src: 'assets/img/gallery/IMG_0155.webp' },
+    { src: 'assets/img/gallery/NEW_03.webp' },
+    { src: 'assets/img/gallery/IMG_0156.webp' },
+    { src: 'assets/img/gallery/IMG_0158.webp' },
+    { src: 'assets/img/gallery/IMG_0160.webp' },
+    { src: 'assets/img/gallery/IMG_0159.webp' },
+    { src: 'assets/img/gallery/NEW_04.webp' },
+    { src: 'assets/img/gallery/IMG_0162.webp' },
+    { src: 'assets/img/gallery/IMG_0163.webp' }
   ];
+
+  /* ══════════════════════════════════════════════════════════
+     PRELOADER — 96 infinity mark drawing itself
+     Sequence:
+       1. Left lobe strokes in  (1.2s)
+       2. Right lobe strokes in (1.2s, slight overlap)
+       3. Slash strokes in      (0.5s)
+       4. Mark glows / pulses briefly
+       5. Studio name fades in
+       6. Entire preloader slides up off-screen
+       7. Page content fades in
+  ══════════════════════════════════════════════════════════ */
+  function initPreloader(onComplete) {
+    var preloader = document.getElementById('galPreloader');
+    if (!preloader) { onComplete(); return; }
+
+    // Respect reduced-motion: skip straight to onComplete
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      preloader.style.display = 'none';
+      onComplete();
+      return;
+    }
+
+    var logo      = preloader.querySelector('.gal-preloader__mark');
+    var logoMark  = preloader.querySelector('.gal-preloader__logo-mark');
+    var paths     = logo ? Array.from(logo.querySelectorAll('path, polygon')) : [];
+    var label     = document.querySelector('.gal-preloader__label');
+
+    var tl = gsap.timeline({
+      onComplete: function() {
+        // Slide preloader up off screen
+        gsap.to(preloader, {
+          yPercent: -100,
+          duration: 0.9,
+          ease: 'power3.inOut',
+          onComplete: function() {
+            preloader.style.display = 'none';
+            onComplete();
+          }
+        });
+      }
+    });
+
+    // Create the supplied infinity mark as a stroke, then fill it
+    tl.set(logo, { opacity: 1 });
+    paths.forEach(function(path, index) {
+      var length = path.getTotalLength();
+      gsap.set(path, {
+        fill: 'transparent',
+        stroke: '#ffffff',
+        strokeWidth: index === 0 ? 22 : 16,
+        strokeLinecap: 'round',
+        strokeLinejoin: 'round',
+        strokeDasharray: length,
+        strokeDashoffset: length
+      });
+      tl.to(path, {
+        strokeDashoffset: 0,
+        duration: index === 0 ? 1.35 : 0.5,
+        ease: index === 0 ? 'power2.inOut' : 'power3.out'
+      }, index === 0 ? 0 : 1.05 + (index - 1) * 0.28);
+    });
+    tl.to(paths, {
+      fill: '#ffffff',
+      strokeOpacity: 0,
+      duration: 0.55,
+      stagger: 0.08,
+      ease: 'power2.out'
+    }, 1.45);
+
+    // 5. Studio label fades in
+    tl.to(label, {
+      opacity: 1,
+      duration: 0.6,
+      ease: 'power3.out'
+    }, 1.8);
+
+    // 6. Hold for a beat before exit
+    tl.to({}, { duration: 0.5 }, 2.4);
+  }
 
   /* ══════════════════════════════════════════════════════════
      FILM GRAIN
@@ -202,33 +282,35 @@
      HERO INTRO ANIMATION
   ══════════════════════════════════════════════════════════ */
   function initHero() {
-    var label   = document.querySelector('.gal-hero__label');
-    var lines   = document.querySelectorAll('.gal-hero__headline .line');
-    var sub     = document.querySelector('.gal-hero__sub');
-    var count   = document.querySelector('.gal-hero__count');
-    var hint    = document.querySelector('.gal-hero__scroll-hint');
-    var heroBg  = document.querySelector('.gal-hero__bg');
+    var eyebrow  = document.querySelector('.gal-hero__eyebrow');
+    var lines    = document.querySelectorAll('.gal-hero__headline .line');
+    var divider  = document.querySelector('.gal-hero__divider');
+    var desc     = document.querySelector('.gal-hero__desc');
+    var heroBg   = document.querySelector('.gal-hero__bg');
 
-    // Initial state
+    // Initial state for line wipe-up
     gsap.set(lines, { y: '105%', opacity: 0 });
 
-    var tl = gsap.timeline({ delay: 0.2 });
-    tl.to(label,  { opacity: 1, duration: 0.6, ease: 'power3.out' }, 0);
-    tl.to(lines,  { y: '0%', opacity: 1, duration: 1.0, stagger: 0.12, ease: 'power3.out' }, 0.3);
-    tl.to(sub,    { opacity: 1, duration: 0.8, ease: 'power3.out' }, 0.9);
-    tl.to(count,  { opacity: 1, duration: 0.7, ease: 'power3.out' }, 1.1);
-    tl.to(hint,   { opacity: 1, duration: 0.6, ease: 'power3.out' }, 1.3);
+    var tl = gsap.timeline({ delay: 0.15 });
+    // Eyebrow fades in
+    tl.to(eyebrow,  { opacity: 1, duration: 0.7, ease: 'power3.out' }, 0);
+    // Headline lines wipe up
+    tl.to(lines,    { y: '0%', opacity: 1, duration: 1.0, stagger: 0.1, ease: 'power3.out' }, 0.2);
+    // Divider slides in from top
+    tl.to(divider,  { opacity: 1, scaleY: 1, duration: 0.8, ease: 'power3.out' }, 0.5);
+    // Description fades
+    tl.to(desc,     { opacity: 1, duration: 0.9, ease: 'power3.out' }, 0.7);
 
-    // Hero bg slow parallax on scroll
+    // Hero bg very subtle parallax as user scrolls into the first grid
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && heroBg) {
       ScrollTrigger.create({
         trigger: document.querySelector('.gal-hero'),
         start: 'top top',
         end: 'bottom top',
-        scrub: 1.5,
+        scrub: 2,
         id: 'hero-parallax',
         onUpdate: function(self) {
-          gsap.set(heroBg, { y: self.progress * 80 });
+          gsap.set(heroBg, { y: self.progress * 40 });
         }
       });
     }
@@ -413,17 +495,32 @@
   function boot() {
     initGrain();
     initLenis();
-    initCursor();
-    initHeader();
-    initScrollDots();
-    initHero();
-    initInterludes();
-    initCells();
-    initLightbox();
 
-    // Refresh ST after all images load
-    window.addEventListener('load', function() {
-      ScrollTrigger.refresh();
+    // Run the preloader first; everything else fires in onComplete
+    initPreloader(function afterPreloader() {
+
+      // Reveal header, main, scroll progress
+      var header   = document.getElementById('siteHeader');
+      var main     = document.getElementById('galMain');
+      var progress = document.querySelector('.scroll-progress');
+
+      gsap.to([header, main, progress], {
+        opacity: 1,
+        duration: 0.6,
+        stagger: 0.08,
+        ease: 'power3.out',
+        onComplete: function() {
+          // Now that content is visible, initialise everything
+          initCursor();
+          initHeader();
+          initScrollDots();
+          initHero();
+          initInterludes();
+          initCells();
+          initLightbox();
+          ScrollTrigger.refresh();
+        }
+      });
     });
 
     var rt;

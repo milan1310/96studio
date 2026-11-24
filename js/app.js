@@ -244,6 +244,8 @@
     var preloader = document.getElementById('preloader');
     var fill      = document.getElementById('preloaderFill');
     var wordmark  = document.getElementById('preloaderWordmark');
+    var logoMark  = wordmark ? wordmark.querySelector('.preloader__logo-mark') : null;
+    var logoPaths = wordmark ? Array.from(wordmark.querySelectorAll('path, polygon')) : [];
 
     var tl = gsap.timeline({
       onComplete: function() {
@@ -255,12 +257,36 @@
             onComplete();
           }
         })
-        .to(wordmark,  { opacity: 0, y: -12, duration: 0.5, ease: 'power3.in' }, 0)
+        .to(wordmark,  { opacity: 0, y: -12, scale: 1.06, duration: 0.5, ease: 'power3.in' }, 0)
         .to(preloader, { opacity: 0, duration: 0.55, ease: 'power2.inOut' }, 0.15);
       }
     });
 
-    tl.to(wordmark, { opacity: 1, duration: 0.7, ease: 'power3.out' }, 0);
+    tl.set(wordmark, { opacity: 1 });
+    logoPaths.forEach(function(path, index) {
+      var length = path.getTotalLength();
+      gsap.set(path, {
+        fill: 'transparent',
+        stroke: '#121212',
+        strokeWidth: index === 0 ? 22 : 16,
+        strokeLinecap: 'round',
+        strokeLinejoin: 'round',
+        strokeDasharray: length,
+        strokeDashoffset: length
+      });
+      tl.to(path, {
+        strokeDashoffset: 0,
+        duration: index === 0 ? 1.35 : 0.5,
+        ease: index === 0 ? 'power2.inOut' : 'power3.out'
+      }, index === 0 ? 0 : 1.05 + (index - 1) * 0.28);
+    });
+    tl.to(logoPaths, {
+      fill: '#121212',
+      strokeOpacity: 0,
+      duration: 0.55,
+      stagger: 0.08,
+      ease: 'power2.out'
+    }, 1.45);
     tl.to(fill,     { width: '100%', duration: 1.4, ease: 'power2.inOut' }, 0);
     tl.to({},       { duration: 0.4 }); // hold
   }

@@ -7,6 +7,9 @@ export function initPreloader(onComplete) {
   const preloader = document.getElementById('preloader');
   const fill      = document.getElementById('preloaderFill');
   const wordmark  = preloader.querySelector('.preloader__wordmark');
+  const logo      = document.getElementById('preloaderWordmark');
+  const logoMark  = logo?.querySelector('.preloader__logo-mark');
+  const logoPaths = logo ? Array.from(logo.querySelectorAll('path, polygon')) : [];
 
   let progress = 0;
 
@@ -16,8 +19,32 @@ export function initPreloader(onComplete) {
     onComplete: () => exitPreloader()
   });
 
-  // Wordmark fade in
-  tl.to(wordmark, { opacity: 1, duration: 0.8, ease: 'power3.out' }, 0);
+  // Draw the supplied infinity mark, then fill it in
+  tl.set(logo, { opacity: 1 });
+  logoPaths.forEach((path, index) => {
+    const length = path.getTotalLength();
+    gsap.set(path, {
+      fill: 'transparent',
+      stroke: '#121212',
+      strokeWidth: index === 0 ? 22 : 16,
+      strokeLinecap: 'round',
+      strokeLinejoin: 'round',
+      strokeDasharray: length,
+      strokeDashoffset: length
+    });
+    tl.to(path, {
+      strokeDashoffset: 0,
+      duration: index === 0 ? 1.35 : 0.5,
+      ease: index === 0 ? 'power2.inOut' : 'power3.out'
+    }, index === 0 ? 0 : 1.05 + (index - 1) * 0.28);
+  });
+  tl.to(logoPaths, {
+    fill: '#121212',
+    strokeOpacity: 0,
+    duration: 0.55,
+    stagger: 0.08,
+    ease: 'power2.out'
+  }, 1.45);
 
   // Progress bar fill
   tl.to(fill, {
@@ -39,7 +66,7 @@ export function initPreloader(onComplete) {
         onComplete && onComplete();
       }
     })
-    .to(wordmark, { opacity: 0, y: -12, duration: 0.5, ease: 'power3.in' }, 0)
+    .to([wordmark, logo].filter(Boolean), { opacity: 0, y: -12, scale: 1.06, duration: 0.5, ease: 'power3.in' }, 0)
     .to(fill,     { opacity: 0, duration: 0.3 }, 0)
     .to(preloader, { opacity: 0, duration: 0.6, ease: 'power2.inOut' }, 0.2);
   }
