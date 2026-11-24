@@ -405,7 +405,7 @@ button, a {
   font-size: var(--fs-label);
   font-weight: 300;
   letter-spacing: 0.14em;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   color: var(--c-text-dim);
   z-index: 5;
   /* Section 01 label starts hidden (revealed by intro TL).
